@@ -3,6 +3,7 @@ package com.sunnick.easyim.handler;
 import com.sunnick.easyim.util.LoginUtil;
 import com.sunnick.easyim.util.Session;
 import com.sunnick.easyim.util.SessionUtil;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import org.slf4j.Logger;
@@ -13,9 +14,18 @@ import org.slf4j.LoggerFactory;
  *
  * 登录校验
  */
+@ChannelHandler.Sharable
 public class AuthHandler extends ChannelInboundHandlerAdapter {
 
     private static Logger logger = LoggerFactory.getLogger(AuthHandler.class);
+
+    public static AuthHandler getInstance(){
+        return instance;
+    }
+
+    private AuthHandler(){}
+
+    private static AuthHandler instance = new AuthHandler();
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {

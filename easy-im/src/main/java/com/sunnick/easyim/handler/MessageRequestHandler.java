@@ -20,6 +20,14 @@ import java.util.Map;
 public class MessageRequestHandler extends SimpleChannelInboundHandler<MessageRequestPacket> {
 
     private static Logger logger = LoggerFactory.getLogger(MessageRequestHandler.class);
+
+    public static MessageRequestHandler getInstance(){
+        return instance;
+    }
+
+    private MessageRequestHandler(){}
+
+    private static MessageRequestHandler instance = new MessageRequestHandler();
     /**
      * 处理消息请求
      */

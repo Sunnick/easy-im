@@ -2,6 +2,7 @@ package com.sunnick.easyim;
 
 import com.sunnick.easyim.handler.*;
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -12,6 +13,8 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by Sunnick on 2019/1/12/012.
  */
+
+@ChannelHandler.Sharable
 public class Server {
 
     private static Logger logger = LoggerFactory.getLogger(Server.class);
@@ -27,11 +30,13 @@ public class Server {
                     @Override
                     protected void initChannel(NioSocketChannel nioSocketChannel) throws Exception {
                         nioSocketChannel.pipeline().addLast(new MagicNumValidator());
-                        nioSocketChannel.pipeline().addLast(new PacketDecoder());
-                        nioSocketChannel.pipeline().addLast(new LoginRequestHandler());
-                        nioSocketChannel.pipeline().addLast(new AuthHandler());
-                        nioSocketChannel.pipeline().addLast(new MessageRequestHandler());
-                        nioSocketChannel.pipeline().addLast(new PacketEncoder());
+                        nioSocketChannel.pipeline().addLast(PacketCodecHandler.getInstance());
+                        nioSocketChannel.pipeline().addLast(LoginRequestHandler.getInstance());
+                        nioSocketChannel.pipeline().addLast(AuthHandler.getInstance());
+                        nioSocketChannel.pipeline().addLast(ServerHandler.getInstance());
+
+//                        nioSocketChannel.pipeline().addLast(MessageRequestHandler.getInstance());
+//                        nioSocketChannel.pipeline().addLast(CreateGroupRequestHandler.getInstance());
                     }
                 });
         bootstrap.bind(port);

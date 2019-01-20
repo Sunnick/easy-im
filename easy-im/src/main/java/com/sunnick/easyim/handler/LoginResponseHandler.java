@@ -5,20 +5,28 @@ import com.sunnick.easyim.packet.LoginRequestPacket;
 import com.sunnick.easyim.packet.LoginResponsePacket;
 import com.sunnick.easyim.protocol.Packet;
 import com.sunnick.easyim.util.LoginUtil;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.UUID;
-
 /**
  * Created by Sunnick on 2019/1/13/013.
  * 处理登录响应
  */
+@ChannelHandler.Sharable
 public class LoginResponseHandler extends SimpleChannelInboundHandler<LoginResponsePacket> {
 
     private static Logger logger = LoggerFactory.getLogger(LoginResponseHandler.class);
+
+    public static LoginResponseHandler getInstance(){
+        return instance;
+    }
+
+    private LoginResponseHandler(){}
+
+    private static LoginResponseHandler instance = new LoginResponseHandler();
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
@@ -30,12 +38,12 @@ public class LoginResponseHandler extends SimpleChannelInboundHandler<LoginRespo
 
     public LoginRequestPacket getLoginRequestPacket() {
         LoginRequestPacket packet = new LoginRequestPacket();
-        packet.setUserId("119");
-        packet.setUserName("喷水车");
+//        packet.setUserId("119");
+//        packet.setUserName("喷水车");
 
-//        packet.setUserId("120");
-//        packet.setUserName("红十字");
-
+        packet.setUserId("120");
+        packet.setUserName("红十字");
+//
 //        packet.setUserId("110");
 //        packet.setUserName("黑猫警长");
         packet.setPassword("pwd");

@@ -14,6 +14,14 @@ public class MessageResponseHandler extends SimpleChannelInboundHandler<MessageR
 
     private static Logger logger = LoggerFactory.getLogger(MessageResponseHandler.class);
 
+    public static MessageResponseHandler getInstance(){
+        return instance;
+    }
+
+    private MessageResponseHandler(){}
+
+    private static MessageResponseHandler instance = new MessageResponseHandler();
+
     /**
      * 处理消息请求
      */

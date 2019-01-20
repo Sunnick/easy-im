@@ -5,6 +5,7 @@ import com.sunnick.easyim.packet.LoginResponsePacket;
 import com.sunnick.easyim.util.LoginUtil;
 import com.sunnick.easyim.util.Session;
 import com.sunnick.easyim.util.SessionUtil;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import org.slf4j.Logger;
@@ -13,9 +14,18 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by Sunnick on 2019/1/13/013.
  */
+@ChannelHandler.Sharable
 public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginRequestPacket> {
 
     private static Logger logger = LoggerFactory.getLogger(LoginRequestHandler.class);
+
+    public static LoginRequestHandler getInstance(){
+        return instance;
+    }
+
+    private LoginRequestHandler(){}
+
+    private static LoginRequestHandler instance = new LoginRequestHandler();
 
     /**
      * 处理登录请求

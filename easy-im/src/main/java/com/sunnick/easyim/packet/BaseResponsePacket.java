@@ -9,7 +9,7 @@ public abstract class BaseResponsePacket extends Packet {
     /**
      * 返回码,0000表示成功
      */
-    private String code;
+    private String code = "0000";
     /**
      * 返回消息
      */

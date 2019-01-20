@@ -1,5 +1,6 @@
 package com.sunnick.easyim;
 
+import com.sunnick.easyim.Command.CommandManager;
 import com.sunnick.easyim.handler.*;
 import com.sunnick.easyim.util.Scan;
 import io.netty.bootstrap.Bootstrap;
@@ -29,10 +30,12 @@ public class Client {
                     @Override
                     protected void initChannel(SocketChannel channel) throws Exception {
                         channel.pipeline().addLast(new MagicNumValidator());
-                        channel.pipeline().addLast(new PacketDecoder());
-                        channel.pipeline().addLast(new LoginResponseHandler());
-                        channel.pipeline().addLast(new MessageResponseHandler());
-                        channel.pipeline().addLast(new PacketEncoder());
+                        channel.pipeline().addLast(PacketCodecHandler.getInstance());
+                        channel.pipeline().addLast(LoginResponseHandler.getInstance());
+                        channel.pipeline().addLast(ClientHandler.getInstance());
+
+//                        channel.pipeline().addLast(MessageResponseHandler.getInstance());
+//                        channel.pipeline().addLast(CreateGroupResponseHandler.getInstance());
                     }
                 });
         ChannelFuture future = bootstrap.connect("127.0.0.1",8888).addListener(new ChannelFutureListener() {

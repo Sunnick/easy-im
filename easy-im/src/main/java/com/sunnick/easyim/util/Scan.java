@@ -1,10 +1,12 @@
 package com.sunnick.easyim.util;
 
 import com.alibaba.fastjson.JSON;
+import com.sunnick.easyim.Command.CommandManager;
 import com.sunnick.easyim.packet.MessageRequestPacket;
 import com.sunnick.easyim.protocol.PacketCodeC;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
+import io.netty.util.internal.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,40 +26,51 @@ public class Scan implements Runnable {
         this.channel = channel;
     }
 
-    @Override
     public void run() {
         Scanner sc = new Scanner(System.in);
         while (!Thread.interrupted()) {
             if(LoginUtil.hasLogin(channel)){
                 String msg = sc.nextLine();
-                MessageRequestPacket messageRequestPacket = buildMessageRequestPacket(msg);
-                if(messageRequestPacket != null) {
-                    writeMessage(messageRequestPacket);
+                if(!StringUtil.isNullOrEmpty(msg)  &&  !StringUtil.isNullOrEmpty(msg.trim())){
+                    CommandManager.getInstance().exec(this.channel,msg);
                 }
             }
         }
 
     }
+//    public void run() {
+//        Scanner sc = new Scanner(System.in);
+//        while (!Thread.interrupted()) {
+//            if(LoginUtil.hasLogin(channel)){
+//                String msg = sc.nextLine();
+//                MessageRequestPacket messageRequestPacket = buildMessageRequestPacket(msg);
+//                if(messageRequestPacket != null) {
+//                    writeMessage(messageRequestPacket);
+//                }
+//            }
+//        }
+//
+//    }
 
-    private void writeMessage(MessageRequestPacket messageRequestPacket) {
-        ByteBuf buf = PacketCodeC.getInstance().encode(messageRequestPacket);
-        channel.writeAndFlush(buf);
-    }
-
-    private MessageRequestPacket buildMessageRequestPacket(String msg) {
-        MessageRequestPacket request = new MessageRequestPacket();
-        //发送消息格式为   userId::message ，如果userId为空，则发给所有人
-        String[] strs = msg.split("::");
-        if(strs.length < 2){
-            logger.info("发送广播：{}",msg);
-            request.setMessage(msg);
-        }else {
-            logger.info("发送消息给{}：{}",strs[0],strs[1]);
-            request.setToUserId(strs[0]);
-            request.setMessage(strs[1]);
-        }
-        return request;
-    }
+//    private void writeMessage(MessageRequestPacket messageRequestPacket) {
+//        ByteBuf buf = PacketCodeC.getInstance().encode(messageRequestPacket);
+//        channel.writeAndFlush(buf);
+//    }
+//
+//    private MessageRequestPacket buildMessageRequestPacket(String msg) {
+//        MessageRequestPacket request = new MessageRequestPacket();
+//        //发送消息格式为   userId::message ，如果userId为空，则发给所有人
+//        String[] strs = msg.split("::");
+//        if(strs.length < 2){
+//            logger.info("发送广播：{}",msg);
+//            request.setMessage(msg);
+//        }else {
+//            logger.info("发送消息给{}：{}",strs[0],strs[1]);
+//            request.setToUserId(strs[0]);
+//            request.setMessage(strs[1]);
+//        }
+//        return request;
+//    }
 
 
 }

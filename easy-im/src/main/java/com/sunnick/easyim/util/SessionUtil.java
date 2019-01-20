@@ -2,6 +2,7 @@ package com.sunnick.easyim.util;
 
 import com.sunnick.easyim.packet.LoginRequestPacket;
 import io.netty.channel.Channel;
+import io.netty.channel.group.ChannelGroup;
 import io.netty.util.Attribute;
 
 import java.util.Map;
@@ -12,6 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class SessionUtil {
     private static final Map<String,Channel> sessionMap = new ConcurrentHashMap<String, Channel>() ;
+
 
     public static void bindSession(Session  session, Channel channel){
         sessionMap.putIfAbsent(session.getUserId(),channel);

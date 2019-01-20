@@ -1,9 +1,6 @@
 package com.sunnick.easyim.protocol;
 
-import com.sunnick.easyim.packet.LoginRequestPacket;
-import com.sunnick.easyim.packet.LoginResponsePacket;
-import com.sunnick.easyim.packet.MessageRequestPacket;
-import com.sunnick.easyim.packet.MessageResponsePacket;
+import com.sunnick.easyim.packet.*;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
 
@@ -41,6 +38,8 @@ public class PacketCodeC {
         packetTypeMap.put(LOGIN_RESPONSE, LoginResponsePacket.class);
         packetTypeMap.put(MESSAGE_REQUEST, MessageRequestPacket.class);
         packetTypeMap.put(MESSAGE_RESPONSE, MessageResponsePacket.class);
+        packetTypeMap.put(CREATE_GROUP_REQUEST, CreateGroupRequestPacket.class);
+        packetTypeMap.put(CREATE_GROUP_RESPONSE, CreateGroupResponsePacket.class);
 
         serializerMap = new HashMap<Byte, Serializer>();
         Serializer serializer = new JsonSerializer();
