@@ -27,7 +27,7 @@ public class Scan implements Runnable {
     }
 
     public void run() {
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in,"utf-8");
         while (!Thread.interrupted()) {
             if(LoginUtil.hasLogin(channel)){
                 String msg = sc.nextLine();
