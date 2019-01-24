@@ -34,6 +34,7 @@ public class ServerHandler extends SimpleChannelInboundHandler<Packet> {
     static{
         handlerMap.putIfAbsent(MESSAGE_REQUEST,MessageRequestHandler.getInstance());
         handlerMap.putIfAbsent(CREATE_GROUP_REQUEST,CreateGroupRequestHandler.getInstance());
+        handlerMap.putIfAbsent(GROUP_MESSAGE_REQUEST,GroupMessageRequestHandler.getInstance());
     }
 
     @Override

@@ -34,7 +34,10 @@ public class CreateGroupRequestHandler extends SimpleChannelInboundHandler<Creat
     protected void channelRead0(ChannelHandlerContext ctx, CreateGroupRequestPacket packet) throws Exception {
         CreateGroupResponsePacket response = createGroup(ctx,packet);
         logger.info("返回给客户端:{}",JSON.toJSONString(response));
-        ctx.writeAndFlush(response);
+        for (String userId : packet.getUsers()){
+            SessionUtil.getChannelByUserId(userId).writeAndFlush(response);
+        }
+//        ctx.writeAndFlush(response);
     }
 
     private CreateGroupResponsePacket createGroup(ChannelHandlerContext ctx, CreateGroupRequestPacket packet) {

@@ -41,6 +41,8 @@ public class ClientHandler extends SimpleChannelInboundHandler<Packet> {
     static{
         handlerMap.putIfAbsent(MESSAGE_RESPONSE,MessageResponseHandler.getInstance());
         handlerMap.putIfAbsent(CREATE_GROUP_RESPONSE,CreateGroupResponseHandler.getInstance());
+        handlerMap.putIfAbsent(GROUP_MESSAGE_RESPONSE,GroupMessageResponseHandler.getInstance());
+        handlerMap.putIfAbsent(DEFAULT_ERROR, DefaultErrorHandler.getInstance());
     }
 
     @Override

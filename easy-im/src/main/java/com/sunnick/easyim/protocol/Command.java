@@ -32,4 +32,18 @@ public interface Command {
      * 创建群聊响应
      */
     final Byte CREATE_GROUP_RESPONSE = 6;
+
+    /**
+     * 发送群聊
+     */
+    final Byte GROUP_MESSAGE_REQUEST = 7;
+
+    /**
+     * 创建群聊响应
+     */
+    final Byte GROUP_MESSAGE_RESPONSE = 8;
+    /**
+     * 默认错误
+     */
+    final Byte DEFAULT_ERROR = 127;
 }

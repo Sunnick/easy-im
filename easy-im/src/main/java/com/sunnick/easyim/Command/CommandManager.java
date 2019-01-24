@@ -28,6 +28,7 @@ public class CommandManager {
         commandMap.putIfAbsent("sendToUser",new P2PCommand());
         commandMap.putIfAbsent("broadcast",new BroadcastCommand());
         commandMap.putIfAbsent("createGroup",new CreateGroupCommand());
+        commandMap.putIfAbsent("sendToGroup",new GroupMessageCommand());
 
     }
 
@@ -41,7 +42,7 @@ public class CommandManager {
     /**
      * 命令执行：
      * 单聊 sendToUser::userId::msg
-     * 群聊 sendToGroup::groupId
+     * 群聊 sendToGroup::groupId::msg
      * 发起群聊 createGroup::userId1,userId2,userId3...
      * 退出群聊 quitGroup::groupId
      * 加入群聊 joinGroup::groupId

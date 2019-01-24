@@ -28,27 +28,7 @@ public class LoginResponseHandler extends SimpleChannelInboundHandler<LoginRespo
 
     private static LoginResponseHandler instance = new LoginResponseHandler();
 
-    @Override
-    public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        //发起登录
-        LoginRequestPacket packet = getLoginRequestPacket();
-        logger.info("ready to login!-->" + JSON.toJSONString(packet));
-        ctx.channel().writeAndFlush(packet);
-    }
 
-    public LoginRequestPacket getLoginRequestPacket() {
-        LoginRequestPacket packet = new LoginRequestPacket();
-//        packet.setUserId("119");
-//        packet.setUserName("喷水车");
-
-        packet.setUserId("120");
-        packet.setUserName("红十字");
-//
-//        packet.setUserId("110");
-//        packet.setUserName("黑猫警长");
-        packet.setPassword("pwd");
-        return packet;
-    }
 
     /**
      * 登录成功响应

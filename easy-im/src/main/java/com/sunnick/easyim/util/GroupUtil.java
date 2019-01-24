@@ -19,6 +19,9 @@ public class GroupUtil {
 
     private static Logger logger = LoggerFactory.getLogger(GroupUtil.class);
 
+    /**
+     * 服务端用来保存群聊关系
+     */
     private static final Map<String,ChannelGroup> groupMap = new ConcurrentHashMap<>();
 
     /**
@@ -44,5 +47,10 @@ public class GroupUtil {
         groupId = UUID.randomUUID().toString().split("-")[0];
         groupMap.putIfAbsent(groupId,group);
         return groupId;
+    }
+
+
+    public static ChannelGroup getChannelGroup(String groupId) {
+        return groupMap.get(groupId);
     }
 }

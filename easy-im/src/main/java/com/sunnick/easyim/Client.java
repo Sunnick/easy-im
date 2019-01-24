@@ -20,9 +20,19 @@ import org.slf4j.LoggerFactory;
 public class Client {
 
     private static Logger logger = LoggerFactory.getLogger(Client.class);
+    private static String userId = "156";
+    private static String userName = "zhangsan1";
 
 
     public static void main(String[] strings){
+        if(strings.length > 2){
+            userId = strings[0];
+            userName = strings[1];
+        }
+        start();
+    }
+
+    private static void start() {
         NioEventLoopGroup worker = new NioEventLoopGroup();
         Bootstrap bootstrap = new Bootstrap();
         bootstrap.group(worker).channel(NioSocketChannel.class)
@@ -31,6 +41,7 @@ public class Client {
                     protected void initChannel(SocketChannel channel) throws Exception {
                         channel.pipeline().addLast(new MagicNumValidator());
                         channel.pipeline().addLast(PacketCodecHandler.getInstance());
+                        channel.pipeline().addLast(new LoginHandler(userId,userName));
                         channel.pipeline().addLast(LoginResponseHandler.getInstance());
                         channel.pipeline().addLast(ClientHandler.getInstance());
 
@@ -55,7 +66,6 @@ public class Client {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
     }
 
     /**
