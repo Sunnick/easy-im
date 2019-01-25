@@ -11,6 +11,7 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.util.internal.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,15 +21,17 @@ import org.slf4j.LoggerFactory;
 public class Client {
 
     private static Logger logger = LoggerFactory.getLogger(Client.class);
-    private static String userId = "156";
-    private static String userName = "zhangsan1";
+    private static String userid = "155";
+    private static String username = "zhangsan";
+    private static String host = "127.0.0.1";
+    private static int port = 8888;
 
 
     public static void main(String[] strings){
-        if(strings.length > 1){
-            userId = strings[0];
-            userName = strings[1];
-        }
+        userid = StringUtil.isNullOrEmpty(System.getProperty("userid")) ? userid : System.getProperty("userid");
+        username = StringUtil.isNullOrEmpty(System.getProperty("username")) ? username : System.getProperty("username");
+        host = StringUtil.isNullOrEmpty(System.getProperty("host")) ? host : System.getProperty("host");
+        port = StringUtil.isNullOrEmpty(System.getProperty("port")) ? port : Integer.parseInt(System.getProperty("port"));
         start();
     }
 
@@ -41,12 +44,12 @@ public class Client {
                     protected void initChannel(SocketChannel channel) throws Exception {
                         channel.pipeline().addLast(new MagicNumValidator());
                         channel.pipeline().addLast(PacketCodecHandler.getInstance());
-                        channel.pipeline().addLast(new LoginHandler(userId,userName));
+                        channel.pipeline().addLast(new LoginHandler(userid,username));
                         channel.pipeline().addLast(LoginResponseHandler.getInstance());
                         channel.pipeline().addLast(ClientHandler.getInstance());
                     }
                 });
-        ChannelFuture future = bootstrap.connect("127.0.0.1",8888).addListener(new ChannelFutureListener() {
+        ChannelFuture future = bootstrap.connect(host,port).addListener(new ChannelFutureListener() {
             public void operationComplete(ChannelFuture channelFuture) throws Exception {
                 if(channelFuture.isSuccess()){
                     logger.info("connect to server success!");
