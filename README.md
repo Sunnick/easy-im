@@ -10,10 +10,10 @@ easy-im是面向开发者的一款轻量级、开箱即用的即时通讯系统�
 ## 基本用法
 项目分为easy-im-client、easy-im-server、easy-im-common三个模块。
 
-``` 服务端： ``` 执行mvn package后生成easy-im-server.tar.gz，解压后至./lib目录执行命令：java -jar easy-im-server-1.0-SNAPSHOT.jar,即可启动服务端。
+``` 服务端： ``` 执行mvn package后生成easy-im-server.tar.gz，解压后至./lib目录执行命令：java -jar easy-im-server-1.0-SNAPSHOT.jar -Dport=8888,即可启动服务端,其中port是服务端口。
 
 
-``` 客户端： ``` 执行mvn package后生成easy-im-client.tar.gz，解压后至./lib目录执行命令：java -jar easy-im-client-1.0-SNAPSHOT.jar userid username。其中userid为用户id，username为用户名，userid要保持唯一性。
+``` 客户端： ``` 执行mvn package后生成easy-im-client.tar.gz，解压后至./lib目录执行命令：java -jar easy-im-client-1.0-SNAPSHOT.jar -Duserid=110 -Dusername=zhangsan。其中userid为用户id，username为用户名，userid要保持唯一性。
 
 ``` 用法： ``` 客户端启动后，在命令行输入命令，命令格式为 command::content ，命令以英文双冒号为分隔符，现已支持如下命令：
 
