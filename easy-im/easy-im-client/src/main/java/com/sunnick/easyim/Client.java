@@ -1,6 +1,5 @@
 package com.sunnick.easyim;
 
-import com.sunnick.easyim.Command.CommandManager;
 import com.sunnick.easyim.handler.*;
 import com.sunnick.easyim.util.Scan;
 import io.netty.bootstrap.Bootstrap;
@@ -35,15 +34,17 @@ public class Client {
         start();
     }
 
-    private static void start() {
+    public static void start() {
         NioEventLoopGroup worker = new NioEventLoopGroup();
         Bootstrap bootstrap = new Bootstrap();
         bootstrap.group(worker).channel(NioSocketChannel.class)
                 .handler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     protected void initChannel(SocketChannel channel) throws Exception {
+                        channel.pipeline().addLast(new ServerIdleHandler());
                         channel.pipeline().addLast(new MagicNumValidator());
                         channel.pipeline().addLast(PacketCodecHandler.getInstance());
+                        channel.pipeline().addLast(new ClientIdleHandler());
                         channel.pipeline().addLast(new LoginHandler(userid,username));
                         channel.pipeline().addLast(LoginResponseHandler.getInstance());
                         channel.pipeline().addLast(ClientHandler.getInstance());
@@ -57,6 +58,7 @@ public class Client {
                     startScanConsole(channelFuture.channel());
                 }else{
                     logger.info("failed to connect the server! ");
+                    System.exit(0);
                 }
             }
         });

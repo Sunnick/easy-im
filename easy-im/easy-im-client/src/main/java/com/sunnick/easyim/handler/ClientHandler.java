@@ -1,9 +1,12 @@
 package com.sunnick.easyim.handler;
 
 import com.alibaba.fastjson.JSON;
+import com.sunnick.easyim.Client;
 import com.sunnick.easyim.packet.*;
 import com.sunnick.easyim.protocol.Packet;
 import com.sunnick.easyim.protocol.PacketCodeC;
+import com.sunnick.easyim.util.Session;
+import com.sunnick.easyim.util.SessionUtil;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
@@ -51,8 +54,17 @@ public class ClientHandler extends SimpleChannelInboundHandler<Packet> {
         SimpleChannelInboundHandler handler =  handlerMap.get(packet.getCommand());
         if(handler != null ){
             handler.channelRead(channelHandlerContext,packet);
+        }else if (packet.getCommand() == HEART_BEAT){
+            logger.info("收到心跳响应：{}",JSON.toJSONString(packet));
         }else{
             logger.info("未找到响应指令，请确认指令是否正确！");
         }
+    }
+
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+       logger.info("与服务端连接断开，即将重连..");
+        Client.start();
+
     }
 }

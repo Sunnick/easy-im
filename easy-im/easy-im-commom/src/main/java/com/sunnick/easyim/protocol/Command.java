@@ -7,6 +7,10 @@ package com.sunnick.easyim.protocol;
  */
 public interface Command {
     /**
+     * 心跳包
+     */
+    final Byte HEART_BEAT = 0;
+    /**
      * 登录请求
      */
     final Byte LOGIN_REQUEST = 1;
@@ -42,6 +46,7 @@ public interface Command {
      * 创建群聊响应
      */
     final Byte GROUP_MESSAGE_RESPONSE = 8;
+
     /**
      * 默认错误
      */

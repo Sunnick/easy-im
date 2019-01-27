@@ -34,6 +34,7 @@ public class PacketCodeC {
 
     static {
         packetTypeMap = new HashMap<Byte,Class<? extends Packet>>();
+        packetTypeMap.put(HEART_BEAT, HeartBeatPacket.class);
         packetTypeMap.put(LOGIN_REQUEST, LoginRequestPacket.class);
         packetTypeMap.put(LOGIN_RESPONSE, LoginResponsePacket.class);
         packetTypeMap.put(MESSAGE_REQUEST, MessageRequestPacket.class);

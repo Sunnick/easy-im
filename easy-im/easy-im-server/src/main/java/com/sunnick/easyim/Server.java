@@ -34,9 +34,11 @@ public class Server {
                 .childHandler(new ChannelInitializer<NioSocketChannel>() {
                     @Override
                     protected void initChannel(NioSocketChannel nioSocketChannel) throws Exception {
+                        nioSocketChannel.pipeline().addLast(new ServerIdleHandler());
                         nioSocketChannel.pipeline().addLast(new MagicNumValidator());
                         nioSocketChannel.pipeline().addLast(PacketCodecHandler.getInstance());
                         nioSocketChannel.pipeline().addLast(LoginRequestHandler.getInstance());
+                        nioSocketChannel.pipeline().addLast(HeartBeatHandler.getInstance());
                         nioSocketChannel.pipeline().addLast(AuthHandler.getInstance());
                         nioSocketChannel.pipeline().addLast(ServerHandler.getInstance());
                     }
