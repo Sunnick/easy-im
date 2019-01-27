@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
  * Created by Sunnick on 2019/1/13/013.
  * 处理消息响应
  */
-public class MessageResponseHandler extends SimpleChannelInboundHandler<MessageResponsePacket> {
+public class MessageResponseHandler extends EasyImChannelInBoundHandler<MessageResponsePacket> {
 
     private static Logger logger = LoggerFactory.getLogger(MessageResponseHandler.class);
 
@@ -30,7 +30,7 @@ public class MessageResponseHandler extends SimpleChannelInboundHandler<MessageR
     }
 
     @Override
-    protected void channelRead0(ChannelHandlerContext channelHandlerContext, MessageResponsePacket packet) throws Exception {
-        handlMessage((MessageResponsePacket)packet);
+    protected void handleResponse(ChannelHandlerContext ctx, MessageResponsePacket messageResponsePacket) {
+        handlMessage(messageResponsePacket);
     }
 }

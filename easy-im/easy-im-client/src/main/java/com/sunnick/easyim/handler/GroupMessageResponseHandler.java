@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by Sunnick on 2019/1/22/022.
  */
-public class GroupMessageResponseHandler extends SimpleChannelInboundHandler<GroupMessageResponsePacket> {
+public class GroupMessageResponseHandler extends EasyImChannelInBoundHandler<GroupMessageResponsePacket> {
 
     private static GroupMessageResponseHandler instance = new GroupMessageResponseHandler();
     private GroupMessageResponseHandler(){}
@@ -19,9 +19,8 @@ public class GroupMessageResponseHandler extends SimpleChannelInboundHandler<Gro
 
     private static Logger logger = LoggerFactory.getLogger(GroupMessageResponseHandler.class);
 
-
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, GroupMessageResponsePacket packet) throws Exception {
+    protected void handleResponse(ChannelHandlerContext ctx, GroupMessageResponsePacket packet) {
         logger.info("收到群聊{}的消息：{}-->{}",packet.getGroupId(),packet.getFromUserName(),packet.getGroupMsg());
     }
 }

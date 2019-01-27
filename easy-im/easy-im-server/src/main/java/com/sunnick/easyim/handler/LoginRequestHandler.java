@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
  * Created by Sunnick on 2019/1/13/013.
  */
 @ChannelHandler.Sharable
-public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginRequestPacket> {
+public class LoginRequestHandler extends EasyImChannelInBoundHandler<LoginRequestPacket> {
 
     private static Logger logger = LoggerFactory.getLogger(LoginRequestHandler.class);
 
@@ -57,7 +57,7 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
     }
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, LoginRequestPacket packet) throws Exception {
+    protected void handleResponse(ChannelHandlerContext ctx, LoginRequestPacket packet) {
         LoginResponsePacket response = login(ctx,packet);
         ctx.channel().writeAndFlush(response);
     }

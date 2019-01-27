@@ -20,8 +20,8 @@ import org.slf4j.LoggerFactory;
 public class Client {
 
     private static Logger logger = LoggerFactory.getLogger(Client.class);
-    private static String userid = "155";
-    private static String username = "zhangsan";
+    private static String userid = "157";
+    private static String username = "wangwu";
     private static String host = "127.0.0.1";
     private static int port = 8888;
 

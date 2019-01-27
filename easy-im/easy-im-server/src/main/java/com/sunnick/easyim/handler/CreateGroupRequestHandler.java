@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by Sunnick on 2019/1/20/020.
  */
-public class CreateGroupRequestHandler extends SimpleChannelInboundHandler<CreateGroupRequestPacket> {
+public class CreateGroupRequestHandler extends EasyImChannelInBoundHandler<CreateGroupRequestPacket> {
 
     private static Logger logger = LoggerFactory.getLogger(CreateGroupRequestHandler.class);
 
@@ -30,14 +30,14 @@ public class CreateGroupRequestHandler extends SimpleChannelInboundHandler<Creat
 
     private static CreateGroupRequestHandler instance = new CreateGroupRequestHandler();
 
+
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, CreateGroupRequestPacket packet) throws Exception {
+    protected void handleResponse(ChannelHandlerContext ctx, CreateGroupRequestPacket packet) {
         CreateGroupResponsePacket response = createGroup(ctx,packet);
         logger.info("返回给客户端:{}",JSON.toJSONString(response));
         for (String userId : packet.getUsers()){
             SessionUtil.getChannelByUserId(userId).writeAndFlush(response);
         }
-//        ctx.writeAndFlush(response);
     }
 
     private CreateGroupResponsePacket createGroup(ChannelHandlerContext ctx, CreateGroupRequestPacket packet) {

@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by Sunnick on 2019/1/22/022.
  */
-public class DefaultErrorHandler extends SimpleChannelInboundHandler<DefaultErrorPacket> {
+public class DefaultErrorHandler extends EasyImChannelInBoundHandler<DefaultErrorPacket> {
 
     private static DefaultErrorHandler instance = new DefaultErrorHandler();
     public static DefaultErrorHandler getInstance(){
@@ -20,7 +20,7 @@ public class DefaultErrorHandler extends SimpleChannelInboundHandler<DefaultErro
     private static Logger logger = LoggerFactory.getLogger(DefaultErrorHandler.class);
 
     @Override
-    protected void channelRead0(ChannelHandlerContext channelHandlerContext, DefaultErrorPacket packet) throws Exception {
+    protected void handleResponse(ChannelHandlerContext ctx, DefaultErrorPacket packet) {
         logger.info("{}---{}",packet.getCode(),packet.getMsg());
     }
 }

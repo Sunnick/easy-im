@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by Sunnick on 2019/1/20/020.
  */
-public class CreateGroupResponseHandler extends SimpleChannelInboundHandler<CreateGroupResponsePacket> {
+public class CreateGroupResponseHandler extends EasyImChannelInBoundHandler<CreateGroupResponsePacket> {
 
     private static Logger logger = LoggerFactory.getLogger(CreateGroupResponseHandler.class);
 
@@ -23,8 +23,9 @@ public class CreateGroupResponseHandler extends SimpleChannelInboundHandler<Crea
 
     private static CreateGroupResponseHandler instance = new CreateGroupResponseHandler();
 
+
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, CreateGroupResponsePacket packet) throws Exception {
+    protected void handleResponse(ChannelHandlerContext ctx, CreateGroupResponsePacket packet) {
         if (!packet.success()){
             logger.info(JSON.toJSONString(packet));
             return;

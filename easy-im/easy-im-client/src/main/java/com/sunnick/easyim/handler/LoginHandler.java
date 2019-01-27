@@ -35,15 +35,6 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
         LoginRequestPacket packet = new LoginRequestPacket();
         packet.setUserId(this.userId);
         packet.setUserName(this.userName);
-//        packet.setUserId("119");
-//        packet.setUserName("喷水车");
-
-//        packet.setUserId("120");
-//        packet.setUserName("红十字");
-//
-//        packet.setUserId("110");
-//        packet.setUserName("黑猫警长");
-//        packet.setPassword("pwd");
         return packet;
     }
 }

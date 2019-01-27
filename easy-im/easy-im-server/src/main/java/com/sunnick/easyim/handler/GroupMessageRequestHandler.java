@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by Sunnick on 2019/1/22/022.
  */
-public class GroupMessageRequestHandler extends SimpleChannelInboundHandler<GroupMessageRequestPacket> {
+public class GroupMessageRequestHandler extends EasyImChannelInBoundHandler<GroupMessageRequestPacket> {
 
     private static GroupMessageRequestHandler instance = new GroupMessageRequestHandler();
     private GroupMessageRequestHandler(){}
@@ -24,8 +24,9 @@ public class GroupMessageRequestHandler extends SimpleChannelInboundHandler<Grou
 
     private static Logger logger = LoggerFactory.getLogger(GroupMessageRequestHandler.class);
 
+
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, GroupMessageRequestPacket packet) throws Exception {
+    protected void handleResponse(ChannelHandlerContext ctx, GroupMessageRequestPacket packet) {
         ChannelGroup channelGroup = GroupUtil.getChannelGroup(packet.getGroupId());
         if(channelGroup == null){
             logger.info("群聊不存在!");

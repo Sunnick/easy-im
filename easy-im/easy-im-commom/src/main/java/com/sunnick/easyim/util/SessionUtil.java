@@ -20,7 +20,7 @@ public class SessionUtil {
         channel.attr(Attributes.SESSION).set(session);
     }
 
-    public static void unBindSession(Session  session, Channel channel){
+    public static void unBindSession(Session  session,Channel channel){
         sessionMap.remove(session.getUserId());
         channel.attr(Attributes.SESSION).remove();
     }

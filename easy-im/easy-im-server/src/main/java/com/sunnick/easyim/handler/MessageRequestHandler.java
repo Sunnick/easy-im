@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * Created by Sunnick on 2019/1/13/013.
  */
-public class MessageRequestHandler extends SimpleChannelInboundHandler<MessageRequestPacket> {
+public class MessageRequestHandler extends EasyImChannelInBoundHandler<MessageRequestPacket> {
 
     private static Logger logger = LoggerFactory.getLogger(MessageRequestHandler.class);
 
@@ -91,8 +91,8 @@ public class MessageRequestHandler extends SimpleChannelInboundHandler<MessageRe
     }
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, MessageRequestPacket packet) throws Exception {
-        handlMessage(ctx,(MessageRequestPacket)packet);
+    protected void handleResponse(ChannelHandlerContext ctx, MessageRequestPacket messageRequestPacket) {
+        handlMessage(ctx,messageRequestPacket);
     }
 
 }

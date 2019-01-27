@@ -2,6 +2,8 @@ package com.sunnick.easyim;
 
 import com.sunnick.easyim.handler.*;
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -43,7 +45,19 @@ public class Server {
                         nioSocketChannel.pipeline().addLast(ServerHandler.getInstance());
                     }
                 });
-        bootstrap.bind(port);
-        logger.info("server started! using port " + port);
+
+        ChannelFuture future = bootstrap.bind(port);
+        future.addListener(new ChannelFutureListener() {
+            @Override
+            public void operationComplete(ChannelFuture channelFuture) throws Exception {
+                if (channelFuture.isSuccess()){
+                    logger.info("server started! using port {} " , port);
+                }else {
+                    logger.info("server start failed! using port {} " , port);
+                    channelFuture.cause().printStackTrace();
+                    System.exit(0);
+                }
+            }
+        });
     }
 }
