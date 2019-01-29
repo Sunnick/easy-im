@@ -7,7 +7,7 @@ easy-im是面向开发者的一款轻量级、开箱即用的即时通讯系统�
 
 `` + IoT消息推送 ``
 
-## 基本用法
+## 基本用法--单机版（v1分支）
 项目分为easy-im-client、easy-im-server、easy-im-common三个模块。
 
 ``` 服务端： ``` 执行mvn package后生成easy-im-server.tar.gz，解压后至./lib目录执行命令：
@@ -39,17 +39,40 @@ java -jar -Duserid=110 -Dusername=zhangsan -Dhost=127.0.0.1 -Dport=8888 easy-im-
 `` + 查询群聊中在线用户 getGroupUsers::groupId  ``
 
 ---
-##### 后边打算将服务端做成可无限扩展的架构，使之满足高并发的需求。具体分为以下几个步骤：
 
-``` 增加路由层： ``` 所有发送的消息由路由层转发给响应的服务端，服务端再由长连接转发至客户端，以此解决发送端与接收端不在同一台服务器上，无法通讯的问题
+## 计划中-集群版（v2分支）
 
-``` 增加存储介质： ``` 将所有群组关系、客户端与服务器的对应关系、用户信息等存储起来，可以用redis或者MySQL，也可存储历史消息
+#### 打算将服务端做成可无限扩展的架构，使之满足高并发的需求。
 
-``` 增加服务治理： ``` 服务端如果要无限扩展，必须通过服务注册、服务发现的机制，可以通过zookeeper，或者eureka实现
+#### 架构图如下：
 
-##### 有兴趣共同参与的同学，请加我微信 enM2MTA1MzI2 (请用base64解码),一起完善，共同进步。
+![](https://user-gold-cdn.xitu.io/2019/1/29/168998972ea46343?w=627&h=480&f=png&s=17428)
+
+#### 交互步骤：
+##### 1. 启动server，将server注册到注册中心
+##### 2. 启动路由层（route），到注册中心获取可用的server列表
+##### 3. 启动client，到route获取一个server信息（route层实现选择策略，默认轮循）
+##### 4. client与server建立长连接，并将server与client的对应关系存储至Redis或MySQL
+
+#### 注：
+##### 1. route层采用http对外提供无状态的服务，可以采用nginx无限扩展
+##### 2. server注册至注册中心，也可以无限扩展，用以实现百万连接
+##### 3. client之间互聊时，需发送消息至route，route到redis中查找对应的server，再将消息通过server转发至对方的client，以实现两个client不在同一台server时互聊
+---
+
+**目前集群版（v2分支）正在计划中，欢迎有兴趣的同学共同参与，共同进步。**
 
 ---
 
-注：本项目的部分设计参考了闪电侠的掘金小册《Netty入门与实战：仿写微信IM即时通讯系统》，如有侵权，请联系我：zhangshun9201@163.com
+
+## 联系作者
+- [zhangshun9201@163.com](mailto:zhangshun9201@163.com)
+- 个人微信号
+
+![](https://user-gold-cdn.xitu.io/2019/1/29/168999f3dcc33273?w=430&h=430&f=jpeg&s=40811)
+- 微信公众号
+
+![](https://user-gold-cdn.xitu.io/2019/1/27/1688fbaaa4a0b0f3?w=254&h=241&f=png&s=43837)
+
+
 
