@@ -1,6 +1,6 @@
 package com.sunnick.easyim.packet;
 
-import static com.sunnick.easyim.protocol.Command.MESSAGE_RESPONSE;
+import com.sunnick.easyim.protocol.Command;
 
 /**
  * Created by Sunnick on 2019/1/13/013.
@@ -37,7 +37,7 @@ public class MessageResponsePacket extends BaseResponsePacket {
 
     @Override
     public Byte getCommand() {
-        return MESSAGE_RESPONSE;
+        return Command.MESSAGE_RESPONSE;
     }
 
     public String getMessage() {

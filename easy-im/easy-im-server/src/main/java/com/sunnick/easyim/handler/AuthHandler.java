@@ -1,7 +1,7 @@
 package com.sunnick.easyim.handler;
 
-import com.sunnick.easyim.util.LoginUtil;
 import com.sunnick.easyim.util.Session;
+import com.sunnick.easyim.util.LoginUtil;
 import com.sunnick.easyim.util.SessionUtil;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;

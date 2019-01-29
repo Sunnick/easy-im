@@ -1,13 +1,11 @@
 package com.sunnick.easyim.handler;
 
 import com.sunnick.easyim.callback.EasyImCallback;
-import com.sunnick.easyim.protocol.Packet;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Sunnick on 2019/1/27/027.

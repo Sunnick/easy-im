@@ -1,10 +1,7 @@
 package com.sunnick.easyim.Command;
 
 import com.sunnick.easyim.packet.MessageRequestPacket;
-import com.sunnick.easyim.protocol.Packet;
-import com.sunnick.easyim.protocol.PacketCodeC;
 import com.sunnick.easyim.util.ChannelUtil;
-import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

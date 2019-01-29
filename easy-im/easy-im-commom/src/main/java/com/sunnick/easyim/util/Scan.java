@@ -1,14 +1,10 @@
 package com.sunnick.easyim.util;
 
-import com.alibaba.fastjson.JSON;
 import com.sunnick.easyim.Command.CommandManager;
-import com.sunnick.easyim.packet.MessageRequestPacket;
-import com.sunnick.easyim.protocol.PacketCodeC;
-import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
-import io.netty.util.internal.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.StringUtils;
 
 import java.util.Scanner;
 
@@ -31,7 +27,7 @@ public class Scan implements Runnable {
         while (!Thread.interrupted()) {
             if(LoginUtil.hasLogin(channel)){
                 String msg = sc.nextLine();
-                if(!StringUtil.isNullOrEmpty(msg)  &&  !StringUtil.isNullOrEmpty(msg.trim())){
+                if(!StringUtils.isEmpty(msg)  &&  !StringUtils.isEmpty(msg.trim())){
                     CommandManager.getInstance().exec(this.channel,msg);
                 }
             }

@@ -2,26 +2,16 @@ package com.sunnick.easyim.handler;
 
 import com.alibaba.fastjson.JSON;
 import com.sunnick.easyim.Client;
-import com.sunnick.easyim.packet.*;
+import com.sunnick.easyim.protocol.Command;
 import com.sunnick.easyim.protocol.Packet;
-import com.sunnick.easyim.protocol.PacketCodeC;
-import com.sunnick.easyim.util.Session;
-import com.sunnick.easyim.util.SessionUtil;
-import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.SimpleChannelInboundHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Map;
-import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-
-import static com.sunnick.easyim.protocol.Command.*;
-import static com.sunnick.easyim.protocol.Command.CREATE_GROUP_REQUEST;
-import static com.sunnick.easyim.protocol.Command.CREATE_GROUP_RESPONSE;
 
 /**
  * Created by Sunnick on 2019/1/13/013.
@@ -42,10 +32,10 @@ public class ClientHandler extends SimpleChannelInboundHandler<Packet> {
 
     private static Map<Byte,SimpleChannelInboundHandler<? extends Packet>> handlerMap = new ConcurrentHashMap<>();
     static{
-        handlerMap.putIfAbsent(MESSAGE_RESPONSE,MessageResponseHandler.getInstance());
-        handlerMap.putIfAbsent(CREATE_GROUP_RESPONSE,CreateGroupResponseHandler.getInstance());
-        handlerMap.putIfAbsent(GROUP_MESSAGE_RESPONSE,GroupMessageResponseHandler.getInstance());
-        handlerMap.putIfAbsent(DEFAULT_ERROR, DefaultErrorHandler.getInstance());
+        handlerMap.putIfAbsent(Command.MESSAGE_RESPONSE,MessageResponseHandler.getInstance());
+        handlerMap.putIfAbsent(Command.CREATE_GROUP_RESPONSE,CreateGroupResponseHandler.getInstance());
+        handlerMap.putIfAbsent(Command.GROUP_MESSAGE_RESPONSE,GroupMessageResponseHandler.getInstance());
+        handlerMap.putIfAbsent(Command.DEFAULT_ERROR, DefaultErrorHandler.getInstance());
     }
 
     @Override
@@ -54,7 +44,7 @@ public class ClientHandler extends SimpleChannelInboundHandler<Packet> {
         SimpleChannelInboundHandler handler =  handlerMap.get(packet.getCommand());
         if(handler != null ){
             handler.channelRead(channelHandlerContext,packet);
-        }else if (packet.getCommand() == HEART_BEAT){
+        }else if (packet.getCommand() == Command.HEART_BEAT){
             logger.info("收到心跳响应：{}",JSON.toJSONString(packet));
         }else{
             logger.info("未找到响应指令，请确认指令是否正确！");

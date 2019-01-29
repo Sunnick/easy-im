@@ -1,6 +1,5 @@
 package com.sunnick.easyim.handler;
 
-import com.alibaba.fastjson.JSON;
 import com.sunnick.easyim.protocol.Packet;
 import com.sunnick.easyim.protocol.PacketCodeC;
 import io.netty.buffer.ByteBuf;

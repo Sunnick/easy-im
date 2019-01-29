@@ -1,6 +1,5 @@
 package com.sunnick.easyim.util;
 
-import io.netty.channel.Channel;
 import io.netty.util.AttributeKey;
 
 /**

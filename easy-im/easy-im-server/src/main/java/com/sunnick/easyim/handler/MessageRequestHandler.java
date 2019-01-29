@@ -1,14 +1,14 @@
 package com.sunnick.easyim.handler;
 
 import com.alibaba.fastjson.JSON;
+import com.sunnick.easyim.packet.DefaultErrorPacket;
 import com.sunnick.easyim.packet.MessageRequestPacket;
-import com.sunnick.easyim.packet.MessageResponsePacket;
 import com.sunnick.easyim.util.Session;
 import com.sunnick.easyim.util.SessionUtil;
+import com.sunnick.easyim.packet.MessageResponsePacket;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.util.internal.StringUtil;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,10 +49,10 @@ public class MessageRequestHandler extends EasyImChannelInBoundHandler<MessageRe
         //拿到接收方的信息
         String toUserId = request.getToUserId();
         //toUserId不为空，则私聊；为空则发广播
-        if(!StringUtil.isNullOrEmpty(toUserId)){
-            p2pChat(toUserId,response);
+        if(!StringUtils.isEmpty(toUserId)){
+            p2pChat(ctx,toUserId,response);
         }else{
-            broadcast(response);
+            broadcast(ctx,response);
         }
 
 
@@ -61,32 +61,36 @@ public class MessageRequestHandler extends EasyImChannelInBoundHandler<MessageRe
     /**
      * 给所有人群发消息
      */
-    private void broadcast(MessageResponsePacket response) {
+    private void broadcast(ChannelHandlerContext ctx, MessageResponsePacket response) {
         Channel channel = null;
         //获取所有channel，遍历
         Map<String,Channel> sessions = SessionUtil.getAllSession();
         for (Map.Entry<String,Channel> entry : sessions.entrySet()){
             channel = entry.getValue();
             logger.info("发送给客户端{}：{}" ,entry.getKey(), JSON.toJSONString(response));
-            writeMessage(response, channel);
+            writeMessage(ctx, response, channel);
         }
     }
 
     /**
      * 点对点私聊
      */
-    private void p2pChat(String toUserId, MessageResponsePacket response) {
+    private void p2pChat(ChannelHandlerContext ctx, String toUserId, MessageResponsePacket response) {
         Channel toUserChannel = SessionUtil.getChannelByUserId(toUserId);
         logger.info("发送给客户端{}：{}" ,toUserId, JSON.toJSONString(response));
-        writeMessage(response, toUserChannel);
+        writeMessage(ctx,response, toUserChannel);
     }
 
-    private void writeMessage(MessageResponsePacket response, Channel toUserChannel) {
+    private void writeMessage(ChannelHandlerContext ctx, MessageResponsePacket response, Channel toUserChannel) {
         //写数据
         if (toUserChannel!= null && SessionUtil.hasLogin(toUserChannel) ) {
             toUserChannel.writeAndFlush(response);
         }else{
-            logger.info(" 该用户未登录，无法向他发送消息！");
+            DefaultErrorPacket error = new DefaultErrorPacket();
+            error.setCode("3001");
+            error.setMsg("该用户未登录，无法向他发送消息!");
+            logger.info("返回给客户端：{}",JSON.toJSONString(error));
+            ctx.writeAndFlush(error);
         }
     }
 

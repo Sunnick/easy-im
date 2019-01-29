@@ -9,9 +9,9 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.util.internal.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.StringUtils;
 
 /**
  * Created by Sunnick on 2019/1/12/012.
@@ -25,10 +25,11 @@ public class Server {
     private static int port = 8888;
 
     public static void main(String[] strings){
+        port = StringUtils.isEmpty(System.getProperty("port")) ? port : Integer.parseInt(System.getProperty("port"));
+        start();
+    }
 
-
-        port = StringUtil.isNullOrEmpty(System.getProperty("port")) ? port : Integer.parseInt(System.getProperty("port"));
-
+    public static void start() {
         NioEventLoopGroup boss = new NioEventLoopGroup();
         NioEventLoopGroup worker = new NioEventLoopGroup();
         ServerBootstrap bootstrap = new ServerBootstrap();

@@ -2,15 +2,14 @@ package com.sunnick.easyim.handler;
 
 import com.alibaba.fastjson.JSON;
 import com.sunnick.easyim.packet.CreateGroupRequestPacket;
-import com.sunnick.easyim.packet.CreateGroupResponsePacket;
 import com.sunnick.easyim.util.GroupUtil;
 import com.sunnick.easyim.util.SessionUtil;
+import com.sunnick.easyim.packet.CreateGroupResponsePacket;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.util.internal.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +45,7 @@ public class CreateGroupRequestHandler extends EasyImChannelInBoundHandler<Creat
 
         List<String> users = packet.getUsers();
         String groupId = GroupUtil.createGroup(ctx,users);
-        if(StringUtil.isNullOrEmpty(groupId)){
+        if(StringUtils.isEmpty(groupId)){
             response.setCode("1002");
             response.setMsg("创建群聊失败!");
         }

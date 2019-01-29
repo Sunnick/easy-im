@@ -1,7 +1,7 @@
 package com.sunnick.easyim.Command;
 
-import com.sunnick.easyim.packet.GroupMessageRequestPacket;
 import com.sunnick.easyim.util.ChannelUtil;
+import com.sunnick.easyim.packet.GroupMessageRequestPacket;
 import io.netty.channel.Channel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

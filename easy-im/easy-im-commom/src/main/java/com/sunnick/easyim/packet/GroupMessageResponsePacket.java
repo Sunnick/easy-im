@@ -1,6 +1,6 @@
 package com.sunnick.easyim.packet;
 
-import static com.sunnick.easyim.protocol.Command.GROUP_MESSAGE_RESPONSE;
+import com.sunnick.easyim.protocol.Command;
 
 /**
  * Created by Sunnick on 2019/1/22/022.
@@ -13,7 +13,7 @@ public class GroupMessageResponsePacket extends BaseResponsePacket {
 
     @Override
     public Byte getCommand() {
-        return GROUP_MESSAGE_RESPONSE;
+        return Command.GROUP_MESSAGE_RESPONSE;
     }
 
     public String getGroupId() {

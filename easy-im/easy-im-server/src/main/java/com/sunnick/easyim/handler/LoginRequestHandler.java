@@ -2,12 +2,11 @@ package com.sunnick.easyim.handler;
 
 import com.sunnick.easyim.packet.LoginRequestPacket;
 import com.sunnick.easyim.packet.LoginResponsePacket;
-import com.sunnick.easyim.util.LoginUtil;
 import com.sunnick.easyim.util.Session;
+import com.sunnick.easyim.util.LoginUtil;
 import com.sunnick.easyim.util.SessionUtil;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,7 +29,7 @@ public class LoginRequestHandler extends EasyImChannelInBoundHandler<LoginReques
     /**
      * 处理登录请求
      */
-    private LoginResponsePacket login(ChannelHandlerContext ctx,LoginRequestPacket packet) {
+    private LoginResponsePacket login(ChannelHandlerContext ctx, LoginRequestPacket packet) {
         LoginResponsePacket response = new LoginResponsePacket();
         if(valid(packet)){
             //login success

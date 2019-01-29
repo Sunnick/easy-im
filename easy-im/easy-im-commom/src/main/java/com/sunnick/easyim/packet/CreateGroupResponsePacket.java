@@ -1,8 +1,8 @@
 package com.sunnick.easyim.packet;
 
-import java.util.List;
+import com.sunnick.easyim.protocol.Command;
 
-import static com.sunnick.easyim.protocol.Command.CREATE_GROUP_RESPONSE;
+import java.util.List;
 
 /**
  * Created by Sunnick on 2019/1/20/020.
@@ -31,6 +31,6 @@ public class CreateGroupResponsePacket extends BaseResponsePacket {
 
     @Override
     public Byte getCommand() {
-        return CREATE_GROUP_RESPONSE;
+        return Command.CREATE_GROUP_RESPONSE;
     }
 }

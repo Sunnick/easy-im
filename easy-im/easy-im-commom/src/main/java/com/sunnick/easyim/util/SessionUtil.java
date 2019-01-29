@@ -1,8 +1,6 @@
 package com.sunnick.easyim.util;
 
-import com.sunnick.easyim.packet.LoginRequestPacket;
 import io.netty.channel.Channel;
-import io.netty.channel.group.ChannelGroup;
 import io.netty.util.Attribute;
 
 import java.util.Map;

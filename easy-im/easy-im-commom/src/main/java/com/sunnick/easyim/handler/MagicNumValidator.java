@@ -1,11 +1,9 @@
 package com.sunnick.easyim.handler;
 
+import com.sunnick.easyim.protocol.PacketCodeC;
 import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
-
-import static com.sunnick.easyim.protocol.PacketCodeC.MAGIC_NUMBER;
 
 /**
  * Created by Sunnick on 2019/1/13/013.
@@ -22,7 +20,7 @@ public class MagicNumValidator extends LengthFieldBasedFrameDecoder {
     @Override
     protected Object decode(ChannelHandlerContext ctx, ByteBuf in) throws Exception {
         //魔数校验不通过
-        if(in.getInt(in.readerIndex()) != MAGIC_NUMBER){
+        if(in.getInt(in.readerIndex()) != PacketCodeC.MAGIC_NUMBER){
             ctx.channel().close();
             return null;
         }

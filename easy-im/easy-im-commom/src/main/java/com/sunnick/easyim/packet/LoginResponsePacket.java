@@ -1,6 +1,6 @@
 package com.sunnick.easyim.packet;
 
-import static com.sunnick.easyim.protocol.Command.LOGIN_RESPONSE;
+import com.sunnick.easyim.protocol.Command;
 
 /**
  * Created by Sunnick on 2019/1/13/013.
@@ -9,6 +9,6 @@ import static com.sunnick.easyim.protocol.Command.LOGIN_RESPONSE;
  */
 public class LoginResponsePacket extends BaseResponsePacket {
     public Byte getCommand() {
-        return LOGIN_RESPONSE;
+        return Command.LOGIN_RESPONSE;
     }
 }

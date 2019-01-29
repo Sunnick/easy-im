@@ -1,8 +1,7 @@
 package com.sunnick.easyim.packet;
 
+import com.sunnick.easyim.protocol.Command;
 import com.sunnick.easyim.protocol.Packet;
-
-import static com.sunnick.easyim.protocol.Command.MESSAGE_REQUEST;
 
 /**
  * Created by Sunnick on 2019/1/13/013.
@@ -33,7 +32,7 @@ public class MessageRequestPacket extends Packet {
 
     @Override
     public Byte getCommand() {
-        return MESSAGE_REQUEST;
+        return Command.MESSAGE_REQUEST;
     }
 
     public String getMessage() {

@@ -1,9 +1,8 @@
 package com.sunnick.easyim.handler;
 
 import com.alibaba.fastjson.JSON;
-import com.sunnick.easyim.packet.LoginRequestPacket;
-import com.sunnick.easyim.packet.LoginResponsePacket;
 import com.sunnick.easyim.protocol.Packet;
+import com.sunnick.easyim.packet.LoginResponsePacket;
 import com.sunnick.easyim.util.LoginUtil;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;

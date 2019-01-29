@@ -1,6 +1,5 @@
 package com.sunnick.easyim.callback;
 
-import com.sunnick.easyim.protocol.Packet;
 import io.netty.channel.ChannelHandlerContext;
 
 /**

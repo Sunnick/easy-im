@@ -2,7 +2,6 @@ package com.sunnick.easyim.handler;
 
 import com.sunnick.easyim.packet.DefaultErrorPacket;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

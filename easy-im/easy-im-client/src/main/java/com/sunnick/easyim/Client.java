@@ -1,7 +1,7 @@
 package com.sunnick.easyim;
 
-import com.sunnick.easyim.handler.*;
 import com.sunnick.easyim.util.Scan;
+import com.sunnick.easyim.handler.*;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -10,9 +10,9 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.util.internal.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.StringUtils;
 
 /**
  * Created by Sunnick on 2019/1/12/012.
@@ -27,14 +27,18 @@ public class Client {
 
 
     public static void main(String[] strings){
-        userid = StringUtil.isNullOrEmpty(System.getProperty("userid")) ? userid : System.getProperty("userid");
-        username = StringUtil.isNullOrEmpty(System.getProperty("username")) ? username : System.getProperty("username");
-        host = StringUtil.isNullOrEmpty(System.getProperty("host")) ? host : System.getProperty("host");
-        port = StringUtil.isNullOrEmpty(System.getProperty("port")) ? port : Integer.parseInt(System.getProperty("port"));
+        userid = StringUtils.isEmpty(System.getProperty("userid")) ? userid : System.getProperty("userid");
+        username = StringUtils.isEmpty(System.getProperty("username")) ? username : System.getProperty("username");
+        host = StringUtils.isEmpty(System.getProperty("host")) ? host : System.getProperty("host");
+        port = StringUtils.isEmpty(System.getProperty("port")) ? port : Integer.parseInt(System.getProperty("port"));
         start();
     }
 
     public static void start() {
+        start(userid,username,host,port);
+    }
+
+    public static void start(String userid,String username,String host,int port) {
         NioEventLoopGroup worker = new NioEventLoopGroup();
         Bootstrap bootstrap = new Bootstrap();
         bootstrap.group(worker).channel(NioSocketChannel.class)

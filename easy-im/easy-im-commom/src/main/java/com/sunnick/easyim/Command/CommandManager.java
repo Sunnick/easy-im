@@ -1,6 +1,5 @@
 package com.sunnick.easyim.Command;
 
-import com.sunnick.easyim.protocol.Command;
 import io.netty.channel.Channel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

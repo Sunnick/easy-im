@@ -1,10 +1,9 @@
 package com.sunnick.easyim.packet;
 
+import com.sunnick.easyim.protocol.Command;
 import com.sunnick.easyim.protocol.Packet;
 
 import java.util.List;
-
-import static com.sunnick.easyim.protocol.Command.CREATE_GROUP_REQUEST;
 
 /**
  * Created by Sunnick on 2019/1/20/020.
@@ -14,7 +13,7 @@ import static com.sunnick.easyim.protocol.Command.CREATE_GROUP_REQUEST;
 public class CreateGroupRequestPacket extends Packet {
     @Override
     public Byte getCommand() {
-        return CREATE_GROUP_REQUEST;
+        return Command.CREATE_GROUP_REQUEST;
     }
 
     private List<String> users ;
