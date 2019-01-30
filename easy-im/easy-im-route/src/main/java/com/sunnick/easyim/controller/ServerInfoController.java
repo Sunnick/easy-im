@@ -1,8 +1,11 @@
 package com.sunnick.easyim.controller;
 
+import com.sunnick.easyim.entity.IMServerInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.netflix.eureka.EurekaClientConfigBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,9 +29,9 @@ public class ServerInfoController {
     @RequestMapping("/getServerInfo")
     @ResponseBody
     public String getServiceInfo() {
-        String result = template.getForEntity(HTTP_SCHEME + IM_SERVER_NAME + "/getServerInfo",String.class).getBody();
-        logger.info("返回给客户端：{}",result);
-        return result;
+        IMServerInfo serverInfo = template.getForObject( "http://EASY-IM-SERVER/getServerInfo",IMServerInfo.class);
+        logger.info("返回给客户端：{}",serverInfo);
+        return serverInfo.toString();
     }
 
 }

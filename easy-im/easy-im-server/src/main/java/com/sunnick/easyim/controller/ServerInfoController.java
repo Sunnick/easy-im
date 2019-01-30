@@ -1,10 +1,14 @@
 package com.sunnick.easyim.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.sunnick.easyim.Server;
 import com.sunnick.easyim.entity.IMServerInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerInitializedEvent;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.context.ApplicationListener;
@@ -20,32 +24,28 @@ import java.net.UnknownHostException;
  */
 
 @Controller
-public class ServerInfoController implements ApplicationListener<EmbeddedServletContainerInitializedEvent> {
+public class ServerInfoController implements ApplicationRunner {
 
     private static Logger logger = LoggerFactory.getLogger(ServerInfoController.class);
 
     private IMServerInfo serverInfo;
 
-    @Override
-    public void onApplicationEvent(EmbeddedServletContainerInitializedEvent event) {
-        try {
-            this.serverInfo = new IMServerInfo();
-            this.serverInfo.setPort(event.getEmbeddedServletContainer().getPort());
-            this.serverInfo.setHost(InetAddress.getLocalHost().getHostAddress());
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-            logger.info("ip和端口获取失败，即将退出...");
-            System.exit(0);
-        }
-    }
+    @Value("${easyim.server.port}")
+    private int nettyPort;
 
-    @Autowired
-    private DiscoveryClient client;
+    @Override
+    public void run(ApplicationArguments applicationArguments) throws Exception {
+        Server.initValues(nettyPort);
+        Server.start();
+        serverInfo = new IMServerInfo();
+        serverInfo.setHost(InetAddress.getLocalHost().getHostAddress());
+        serverInfo.setPort(nettyPort);
+    }
 
     @RequestMapping("/getServerInfo")
     @ResponseBody
-    public String getServiceInfo() {
-        return JSON.toJSONString(this.serverInfo);
+    public IMServerInfo getServiceInfo() {
+        return this.serverInfo;
     }
 
 }

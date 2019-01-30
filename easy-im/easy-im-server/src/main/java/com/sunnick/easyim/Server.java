@@ -25,8 +25,16 @@ public class Server {
     private static int port = 8888;
 
     public static void main(String[] strings){
-        port = StringUtils.isEmpty(System.getProperty("port")) ? port : Integer.parseInt(System.getProperty("port"));
+        initValuesFromSystemProperties();
         start();
+    }
+
+    private static void initValuesFromSystemProperties() {
+        port = StringUtils.isEmpty(System.getProperty("port")) ? port : Integer.parseInt(System.getProperty("port"));
+    }
+
+    public static void initValues(int port) {
+        Server.port = port < 1 ? Server.port : port;
     }
 
     public static void start() {

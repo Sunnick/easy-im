@@ -17,7 +17,7 @@ public class Application {
 
         SpringApplication.run(Application.class,args);
 
-        //启动netty服务
-        Server.start();
+//        //启动netty服务
+//        Server.start();
     }
 }

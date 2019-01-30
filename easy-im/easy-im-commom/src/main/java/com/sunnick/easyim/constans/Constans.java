@@ -5,7 +5,7 @@ package com.sunnick.easyim.constans;
  */
 public class Constans {
     public static final String HTTP_SCHEME = "http://";
-    public static final String IM_SERVER_NAME = "easy-im-server";
+    public static final String IM_SERVER_NAME = "EASY-IM-SERVER";
     public static final String IM_ROUTE_NAME = "easy-im-route";
 
 }

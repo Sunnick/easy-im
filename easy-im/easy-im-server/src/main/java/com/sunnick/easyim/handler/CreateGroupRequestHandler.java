@@ -35,7 +35,9 @@ public class CreateGroupRequestHandler extends EasyImChannelInBoundHandler<Creat
         CreateGroupResponsePacket response = createGroup(ctx,packet);
         logger.info("返回给客户端:{}",JSON.toJSONString(response));
         for (String userId : packet.getUsers()){
-            SessionUtil.getChannelByUserId(userId).writeAndFlush(response);
+            Channel channel = SessionUtil.getChannelByUserId(userId);
+            if(channel != null)
+                channel.writeAndFlush(response);
         }
     }
 

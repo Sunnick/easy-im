@@ -27,11 +27,32 @@ public class Client {
 
 
     public static void main(String[] strings){
+        initValuesFromSystemProperties();
+        start();
+    }
+
+    /**
+     * 从系统参数中获取值
+     */
+    private static void initValuesFromSystemProperties() {
         userid = StringUtils.isEmpty(System.getProperty("userid")) ? userid : System.getProperty("userid");
         username = StringUtils.isEmpty(System.getProperty("username")) ? username : System.getProperty("username");
         host = StringUtils.isEmpty(System.getProperty("host")) ? host : System.getProperty("host");
         port = StringUtils.isEmpty(System.getProperty("port")) ? port : Integer.parseInt(System.getProperty("port"));
-        start();
+    }
+
+    /**
+     * 外部传值
+     * @param userid
+     * @param username
+     * @param host
+     * @param port
+     */
+    public static void initValues(String userid,String username,String host,int port) {
+        Client.userid = StringUtils.isEmpty(userid) ? Client.userid : userid;
+        Client.username = StringUtils.isEmpty(username) ? Client.username : username;
+        Client.host = StringUtils.isEmpty(host) ? Client.host : host;
+        Client.port = port < 1 ? Client.port : port;
     }
 
     public static void start() {
