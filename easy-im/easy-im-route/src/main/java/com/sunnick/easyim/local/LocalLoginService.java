@@ -32,4 +32,11 @@ public class LocalLoginService implements LoginService {
     public IMLoginRequest getLoginInfo(String userid){
         return loginMap.get(userid);
     }
+
+    @Override
+    public Map<String, IMLoginRequest> getAllLoginUser() {
+        return loginMap;
+    }
+
+
 }

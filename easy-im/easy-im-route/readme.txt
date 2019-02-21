@@ -1,0 +1,4 @@
+service包中定义了各个服务的接口；
+local包中基于本地存储（内存）做service的实现，关机后数据丢失；
+redis包中基于redis做service的实现；
+mysql包中基于MySQL做service的实现，预留，后续再做。

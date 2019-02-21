@@ -61,11 +61,6 @@ public class P2PChatController {
         return response;
     }
 
-    @RequestMapping(value = "/broadcast")
-    @ResponseBody
-    public ChatResponse broadcast(){
-        return null;
-    }
 
     @RequestMapping(value = "/groupChat")
     @ResponseBody
