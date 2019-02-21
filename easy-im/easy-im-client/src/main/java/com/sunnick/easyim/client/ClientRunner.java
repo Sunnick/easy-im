@@ -2,6 +2,8 @@ package com.sunnick.easyim.client;
 
 import com.sunnick.easyim.Client;
 import com.sunnick.easyim.constans.Constans;
+import com.sunnick.easyim.entity.IMLoginRequest;
+import com.sunnick.easyim.entity.IMLoginResponse;
 import com.sunnick.easyim.entity.IMServerInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,8 +44,25 @@ public class ClientRunner implements ApplicationRunner {
         //1. 从route获取server信息
         IMServerInfo serverInfo = getServerInfoFromRoute(routeHost,routePort);
 
+        //3.告诉route连接成功,写入登录信息
+        loginToRoute(serverInfo);
+
         //2. 与server建立长连接
         connectToServer(serverInfo);
+
+    }
+
+    private void loginToRoute(IMServerInfo serverInfo) {
+        IMLoginRequest login = new IMLoginRequest(userid,username,serverInfo.getHost(),serverInfo.getNettyPort(),serverInfo.getHttpPort());
+        IMLoginResponse response = template.postForObject(
+                Constans.HTTP_SCHEME + routeHost + ":" + routePort + "/login",login,IMLoginResponse.class);
+        logger.info("登录返回信息为：{}",response);
+        if (response.success()){
+            logger.info("登录成功");
+        }else{
+            logger.info("登录失败：{}，程序即将退出...",response.getMsg());
+            System.exit(0);
+        }
     }
 
     private IMServerInfo getServerInfoFromRoute(String routeHost, int routePort) {
@@ -57,7 +76,23 @@ public class ClientRunner implements ApplicationRunner {
     }
 
     private void connectToServer(IMServerInfo serverInfo) {
-        Client.initValues(userid,username,serverInfo.getHost(),serverInfo.getPort());
+        Client.initValues(userid,username,serverInfo.getHost(),serverInfo.getNettyPort());
         Client.start();
+    }
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getRouteHost() {
+        return routeHost;
+    }
+
+    public int getRoutePort() {
+        return routePort;
     }
 }

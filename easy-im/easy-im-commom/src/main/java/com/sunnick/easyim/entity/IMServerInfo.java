@@ -8,7 +8,8 @@ import com.alibaba.fastjson.JSON;
  */
 public class IMServerInfo {
     private String host;
-    private int port;
+    private int nettyPort;
+    private int httpPort;
 
     public String getHost() {
         return host;
@@ -18,12 +19,19 @@ public class IMServerInfo {
         this.host = host;
     }
 
-    public int getPort() {
-        return port;
+    public int getNettyPort() {
+        return nettyPort;
     }
 
-    public void setPort(int port) {
-        this.port = port;
+    public void setNettyPort(int nettyPort) {
+        this.nettyPort = nettyPort;
+    }
+    public int getHttpPort() {
+        return httpPort;
+    }
+
+    public void setHttpPort(int httpPort) {
+        this.httpPort = httpPort;
     }
 
     @Override

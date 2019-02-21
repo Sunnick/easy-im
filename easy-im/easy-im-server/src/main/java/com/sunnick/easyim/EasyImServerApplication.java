@@ -11,11 +11,11 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @EnableDiscoveryClient
 @ComponentScan(basePackages = {"com.sunnick.easyim"})
-public class Application {
+public class EasyImServerApplication {
 
     public static void main(String[] args){
 
-        SpringApplication.run(Application.class,args);
+        SpringApplication.run(EasyImServerApplication.class,args);
 
 //        //启动netty服务
 //        Server.start();

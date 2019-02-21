@@ -14,14 +14,19 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 @EnableEurekaClient
 @ComponentScan(basePackages = {"com.sunnick.easyim"})
-public class App {
+public class EasyImRouteApplication {
 
-    @Bean
+    @Bean(name = "ribbonRestTemplate")
     @LoadBalanced
+    RestTemplate ribbonRestTemplate(){
+        return new RestTemplate();
+    }
+
+    @Bean(name = "restTemplate")
     RestTemplate restTemplate(){
         return new RestTemplate();
     }
     public static void main(String[] args){
-        SpringApplication.run(App.class,args);
+        SpringApplication.run(EasyImRouteApplication.class,args);
     }
 }

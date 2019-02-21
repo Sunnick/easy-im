@@ -4,6 +4,7 @@ import com.sunnick.easyim.entity.IMServerInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.netflix.eureka.EurekaClientConfigBean;
 import org.springframework.stereotype.Controller;
@@ -24,12 +25,13 @@ public class ServerInfoController {
     private static Logger logger = LoggerFactory.getLogger(ServerInfoController.class);
 
     @Autowired
-    private RestTemplate template;
+    @Qualifier("ribbonRestTemplate")
+    private RestTemplate ribbonRestTemplate;
 
     @RequestMapping("/getServerInfo")
     @ResponseBody
     public String getServiceInfo() {
-        IMServerInfo serverInfo = template.getForObject( "http://EASY-IM-SERVER/getServerInfo",IMServerInfo.class);
+        IMServerInfo serverInfo = ribbonRestTemplate.getForObject( "http://EASY-IM-SERVER/getServerInfo",IMServerInfo.class);
         logger.info("返回给客户端：{}",serverInfo);
         return serverInfo.toString();
     }

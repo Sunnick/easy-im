@@ -20,10 +20,10 @@ import org.springframework.util.StringUtils;
 public class Client {
 
     private static Logger logger = LoggerFactory.getLogger(Client.class);
-    private static String userid = "157";
-    private static String username = "wangwu";
-    private static String host = "127.0.0.1";
-    private static int port = 8888;
+    public static String userid = "157";
+    public static String username = "wangwu";
+    public static String host = "127.0.0.1";
+    public static int port = 8888;
 
 
     public static void main(String[] strings){
