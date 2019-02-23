@@ -1,5 +1,7 @@
 package com.sunnick.easyim.entity;
 
+import com.alibaba.fastjson.JSON;
+
 /**
  * Created by Sunnick on 2019/2/10/010.
  */
@@ -60,4 +62,8 @@ public class IMLoginRequest {
         this.httpPort = httpPort;
     }
 
+    @Override
+    public String toString() {
+        return JSON.toJSONString(this);
+    }
 }

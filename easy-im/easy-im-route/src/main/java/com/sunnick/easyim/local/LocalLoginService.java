@@ -38,5 +38,9 @@ public class LocalLoginService implements LoginService {
         return loginMap;
     }
 
+    @Override
+    public void logout(String userid) {
+        loginMap.remove(userid);
+    }
 
 }

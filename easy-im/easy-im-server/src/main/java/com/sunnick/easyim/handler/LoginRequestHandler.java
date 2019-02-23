@@ -31,7 +31,7 @@ public class LoginRequestHandler extends EasyImChannelInBoundHandler<LoginReques
      */
     private LoginResponsePacket login(ChannelHandlerContext ctx, LoginRequestPacket packet) {
         LoginResponsePacket response = new LoginResponsePacket();
-        if(valid(packet)){
+        if(valid(ctx,packet)){
             //login success
             response.setCode("0000");
             response.setMsg("登陆成功！");
@@ -51,8 +51,8 @@ public class LoginRequestHandler extends EasyImChannelInBoundHandler<LoginReques
      *  校验登录
      *
      */
-    private boolean valid(LoginRequestPacket loginPacket) {
-        return true;
+    private boolean valid(ChannelHandlerContext ctx, LoginRequestPacket loginPacket) {
+        return !SessionUtil.hasLogin(ctx.channel());
     }
 
     @Override

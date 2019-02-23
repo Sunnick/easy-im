@@ -12,4 +12,5 @@ public interface LoginService {
     boolean isLogin(String userid);
     IMLoginRequest getLoginInfo(String userid);
     Map<String, IMLoginRequest> getAllLoginUser();
+    void logout(String  userid);
 }
