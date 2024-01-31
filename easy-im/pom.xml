@@ -55,7 +55,7 @@
         <dependency>     <!-- 桥接：告诉Slf4j使用Log4j2 -->
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j-impl</artifactId>
-            <version>2.6.2</version>
+            <version>2.22.1</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId> <!-- 桥接：log4j1使用Log4j2 也支持其他实现到log4j的桥接，引入不同的jar包即可-->
